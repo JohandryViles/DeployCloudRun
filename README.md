@@ -82,3 +82,32 @@ DeployCloudRun/
 
 - Si cambias imágenes, utiliza rutas desde `public/` (ejemplo: `/images/mi-imagen.png`).
 - Para despliegues, asegúrate de ejecutar `npm run build` antes de publicar.
+
+## Despliegue en Google Cloud Run (contenedor)
+
+Este repositorio ya incluye:
+
+- `Dockerfile` multi-stage (construye con Vite y sirve estáticos con Nginx)
+- `nginx/default.conf.template` (puerto `8080`, compresión gzip y fallback SPA)
+- `.dockerignore` para optimizar el build del contenedor
+
+### Opción recomendada: despliegue desde repositorio conectado en Cloud Run
+
+1. En Cloud Run, selecciona tu repositorio conectado.
+2. Elige rama y deja la **ruta del Dockerfile** en la raíz (`/`).
+3. En configuración del contenedor:
+   - Puerto: `8080`
+   - Comando del contenedor: dejar vacío
+   - Argumentos: dejar vacío
+4. Despliega el servicio.
+
+Cloud Run inyecta la variable `PORT` (por defecto `8080`) y Nginx escucha en ese puerto automáticamente.
+
+### Verificar localmente el contenedor (opcional)
+
+```bash
+docker build -t deploycloudrun .
+docker run -p 8080:8080 deploycloudrun
+```
+
+Luego abre `http://localhost:8080`.

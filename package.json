@@ -20,6 +20,9 @@
   },
   "homepage": "https://github.com/JohandryViles/DeployCloudRun#readme",
   "private": true,
+  "engines": {
+    "node": "20.x"
+  },
   "dependencies": {
     "react": "^19.2.0",
     "react-dom": "^19.2.0"

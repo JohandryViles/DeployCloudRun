@@ -88,7 +88,7 @@ DeployCloudRun/
 Este repositorio ya incluye:
 
 - `Dockerfile` multi-stage (construye con Vite y sirve estáticos con Nginx)
-- `nginx/default.conf.template` (puerto `8080`, compresión gzip y fallback SPA)
+- `nginx/default.conf` (puerto `8080`, compresión gzip y fallback SPA)
 - `.dockerignore` para optimizar el build del contenedor
 
 ### Opción recomendada: despliegue desde repositorio conectado en Cloud Run
@@ -101,7 +101,14 @@ Este repositorio ya incluye:
    - Argumentos: dejar vacío
 4. Despliega el servicio.
 
-Cloud Run inyecta la variable `PORT` (por defecto `8080`) y Nginx escucha en ese puerto automáticamente.
+Cloud Run inyecta la variable `PORT` (por defecto `8080`) y Nginx escucha en ese puerto.
+
+### Si el build falla en Cloud Build
+
+1. En el trigger de Cloud Build (o en la configuración del servicio), confirma que el tipo de build sea **Dockerfile** y no Buildpacks.
+2. Ruta del Dockerfile: `Dockerfile` (raíz del repo).
+3. Contexto de build: `/` (raíz).
+4. Puerto del contenedor: `8080`.
 
 ### Verificar localmente el contenedor (opcional)
 
